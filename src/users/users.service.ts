@@ -5,7 +5,7 @@ import {
   UpdatePasswordDto,
 } from './users.user.dto';
 import { compare, hash } from 'bcrypt';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '@/prisma/prisma.service';
 import { User, Role } from '@prisma/client';
 
 interface FormatLogin extends Partial<User> {
@@ -87,14 +87,8 @@ export class UsersService {
 
   // use by auth module to get user in database
   async findByPayload({ email }: any): Promise<any> {
-    const user = await this.prisma.user.findUnique({
+    return await this.prisma.user.findFirst({
       where: { email },
     });
-
-    if (!user) {
-      throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
-    }
-
-    return user;
   }
 }

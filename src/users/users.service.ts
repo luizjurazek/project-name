@@ -17,7 +17,7 @@ interface FormatLogin extends Partial<User> {
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async getUser(id: number): Promise<User> {
+  async getUser(id: number): Promise<Omit<User, 'password'> | null> {
     const user = await this.prisma.user.findUnique({
       where: { id },
     });
@@ -26,7 +26,8 @@ export class UsersService {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
-    return user;
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
   }
 
   // Use by module to change user password

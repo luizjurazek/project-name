@@ -17,9 +17,9 @@ import { PrismaService } from '@/prisma/prisma.service';
       session: false,
     }),
     JwtModule.register({
-      secret: process.env.SECRETKEY,
+      secret: process.env.JWT_SECRET,
       signOptions: {
-        expiresIn: process.env.EXPIRESIN,
+        expiresIn: process.env.JWT_EXPIRESIN,
       },
     }),
   ],

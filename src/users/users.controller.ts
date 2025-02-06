@@ -34,7 +34,16 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
   @UseInterceptors(ClassSerializerInterceptor)
-  @Put('update/password')
+  @Get('get-user')
+  public async getUser(@Request() req) {
+    const user = await this.usersService.getUser(req.user.id);
+    return user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiSecurity('access-key')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Put('update-password')
   public async updatePassword(
     @Request() req,
     @Body()

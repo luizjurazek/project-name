@@ -40,3 +40,9 @@ export class UpdatePasswordDto {
   @ApiProperty()
   old_password: string;
 }
+
+export class getUserDto {
+  @IsNotEmpty()
+  @ApiProperty()
+  id: number;
+}
